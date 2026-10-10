@@ -5,12 +5,14 @@ const http = require('http');
 const { spawn, spawnSync } = require('child_process');
 const WebSocket = require('ws');
 const root = path.resolve(__dirname, '..');
+const basePath = new URL(require('../package.json').homepage).pathname.replace(/\/$/, '');
 const work = fs.mkdtempSync(path.join(os.tmpdir(), 'xadrez-demo-'));
 const wait = ms => new Promise(resolve => setTimeout(resolve, ms));
 const chrome = ['C:/Program Files (x86)/Microsoft/Edge/Application/msedge.exe', 'C:/Program Files/Google/Chrome/Application/chrome.exe'].find(fs.existsSync);
 const types = { '.html': 'text/html', '.js': 'text/javascript', '.css': 'text/css', '.png': 'image/png' };
 const server = http.createServer((req, res) => {
-    const url = decodeURIComponent(req.url.split('?')[0]);
+    const requestedPath = decodeURIComponent(req.url.split('?')[0]);
+    const url = requestedPath.startsWith(basePath + '/') ? requestedPath.slice(basePath.length) : requestedPath;
     const file = path.resolve(root, 'build', '.' + (url === '/' ? '/index.html' : url));
     if (!file.startsWith(path.join(root, 'build') + path.sep)) { res.writeHead(403); res.end(); return; }
     fs.readFile(file, (error, data) => { res.writeHead(error ? 404 : 200, { 'Content-Type': types[path.extname(file)] || 'application/octet-stream' }); res.end(error ? 'Not found' : data); });
@@ -50,7 +52,7 @@ const server = http.createServer((req, res) => {
         }
         console.log('Navegador conectado; preparando captura.');
         await call('Emulation.setDeviceMetricsOverride', { width: 960, height: 800, deviceScaleFactor: 1, mobile: false });
-        await call('Page.navigate', { url: `http://127.0.0.1:${server.address().port}` });
+        await call('Page.navigate', { url: `http://127.0.0.1:${server.address().port}${basePath}/` });
         for (let i = 0; i < 100; i++) {
             if (await evaluate(`document.querySelectorAll('.colaborador').length === 20 && Array.from(document.images).every(img => img.complete)`)) break;
             await wait(200);

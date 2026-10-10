@@ -90,3 +90,9 @@ Desenvolvido e personalizado por **Leandro do Nascimento**, a partir do projeto 
 
 - [Facebook](https://web.facebook.com/leandro.nascimento.37266)
 - [Instagram](https://www.instagram.com/leandro_nscmt?psln=MTJmY3Q1cjI3M2R4cg==)
+
+## GitHub Pages
+
+O projeto está configurado para https://nando-2309.github.io/organograma_xadrez/.
+
+No repositório, abra **Settings > Pages** e selecione **GitHub Actions** em **Source**. Envie as alterações para a branch `main`. O workflow `.github/workflows/pages.yml` executa os testes, gera o build e publica o site automaticamente. Acompanhe o resultado na aba **Actions**.

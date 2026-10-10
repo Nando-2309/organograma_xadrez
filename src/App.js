@@ -98,7 +98,7 @@ function App() {
     favorito: false,
     nome,
     profissao: 'Jogador de xadrez',
-    imagem: `/imagens/jogadores/${imagensJogadores[nome]}`,
+    imagem: `${process.env.PUBLIC_URL}/imagens/jogadores/${imagensJogadores[nome]}`,
     categoria: categoria.nome
   })));
 

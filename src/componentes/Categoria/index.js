@@ -40,7 +40,7 @@ const Categoria = ({ categoria, colaboradores, aoDeletar, mudarCor, aoFavoritar 
 
     return (
 
-        colaboradores.length > 0 && <section className='categoria' style={{ backgroundImage: 'url(/imagens/fundo.png)', backgroundColor: hexToRgba(categoria.cor, '0.6') }}>
+        colaboradores.length > 0 && <section className='categoria' style={{ backgroundImage: `url(${process.env.PUBLIC_URL}/imagens/fundo.png)`, backgroundColor: hexToRgba(categoria.cor, '0.6') }}>
             <input type='color' className='input-cor' aria-label={`Cor da categoria ${categoria.nome}`} value={categoria.cor} onChange={evento => {
                 mudarCor(evento.target.value, categoria.id);
             }} />
