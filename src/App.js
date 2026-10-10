@@ -2,7 +2,7 @@ import { useState } from "react";
 import Banner from "./componentes/Banner";
 import Formulario from "./componentes/Formulario";
 import Rodape from "./componentes/Rodape";
-import Time from "./componentes/Time";
+import Categoria from "./componentes/Categoria";
 import { v4 as uuidv4 } from 'uuid';
 
 const imagensJogadores = {
@@ -89,7 +89,7 @@ function App() {
   }
 ];
 
-  const [times, setTimes] = useState(() => categoriasIniciais.map(({ nome, cor }) => ({
+  const [categorias, setCategorias] = useState(() => categoriasIniciais.map(({ nome, cor }) => ({
     id: uuidv4(), nome, cor
   })));
 
@@ -97,9 +97,9 @@ function App() {
     id: uuidv4(),
     favorito: false,
     nome,
-    cargo: 'Jogador de xadrez',
+    profissao: 'Jogador de xadrez',
     imagem: `/imagens/jogadores/${imagensJogadores[nome]}`,
-    time: categoria.nome
+    categoria: categoria.nome
   })));
 
   const [colaboradores, setColaboradores] = useState(inicial)
@@ -109,16 +109,16 @@ function App() {
   }
 
   function mudarCor(cor, id) {
-    setTimes(times.map(time => {
-      if(time.id === id) {
-        time.cor = cor;
+    setCategorias(categorias.map(categoria => {
+      if(categoria.id === id) {
+        categoria.cor = cor;
       }
-      return time;
+      return categoria;
     }));
   }
 
-  function cadastrarTime({ nome, cor }) {
-    setTimes([...times, { nome, cor, id: uuidv4() }])
+  function cadastrarCategoria({ nome, cor }) {
+    setCategorias([...categorias, { nome, cor, id: uuidv4() }])
   }
 
   function resolverFavorito(id) {
@@ -132,10 +132,10 @@ function App() {
   return (
     <div>
       <Banner />
-      <Formulario aoCriarTime={cadastrarTime} times={times.map(time => time.nome)} aoCadastrar={colaborador => setColaboradores([...colaboradores, colaborador])} />
-      <section className="times">
+      <Formulario aoCriarCategoria={cadastrarCategoria} categorias={categorias.map(categoria => categoria.nome)} aoCadastrar={colaborador => setColaboradores([...colaboradores, colaborador])} />
+      <section className="categorias">
         <h1>Minha organização</h1>
-        {times.map((time, indice) => <Time mudarCor={mudarCor} key={indice} time={time} colaboradores={colaboradores.filter(colaborador => colaborador.time === time.nome)} aoDeletar={deletarColaborador} aoFavoritar={resolverFavorito} />)}
+        {categorias.map((categoria, indice) => <Categoria mudarCor={mudarCor} key={indice} categoria={categoria} colaboradores={colaboradores.filter(colaborador => colaborador.categoria === categoria.nome)} aoDeletar={deletarColaborador} aoFavoritar={resolverFavorito} />)}
       </section>
       <Rodape />
     </div>

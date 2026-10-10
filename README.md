@@ -10,7 +10,7 @@ Galeria interativa de campeões de xadrez, organizados por personalidade e estil
 
 - 20 jogadores distribuídos em seis categorias.
 - Imagens com nome e período de reinado como campeão.
-- Cadastro de cartões usando nome, cargo, endereço da imagem e categoria.
+- Cadastro de cartões usando nome, profissão, endereço da imagem e categoria.
 - Criação de categorias com nome e cor personalizados.
 - Alteração da cor das categorias em tempo real.
 - Favoritar e excluir jogadores.
